@@ -10,7 +10,7 @@ using IF3250_2022_24_APPTS_Backend.Helpers;
 
 public interface IJwtUtils
 {
-    public string GenerateToken(Applicant user);
+    public string GenerateToken(User user);
     public int? ValidateToken(string token);
 }
 
@@ -23,14 +23,14 @@ public class JwtUtils : IJwtUtils
         _appSettings = appSettings.Value;
     }
 
-    public string GenerateToken(Applicant applicant)
+    public string GenerateToken(User user)
     {
         // generate token that is valid for 7 days
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new[] { new Claim("id", applicant.applicant_id.ToString()) }),
+            Subject = new ClaimsIdentity(new[] { new Claim("id", user.user_id.ToString()) }),
             Expires = DateTime.UtcNow.AddDays(7),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };

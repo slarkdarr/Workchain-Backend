@@ -7,17 +7,18 @@ using IF3250_2022_24_APPTS_Backend.Authorization;
 using IF3250_2022_24_APPTS_Backend.Helpers;
 using IF3250_2022_24_APPTS_Backend.Models.User;
 using IF3250_2022_24_APPTS_Backend.Services;
+using IF3250_2022_24_APPTS_Backend.Entities;
 
 [Authorize]
 [ApiController]
 [Route("[controller]")]
-public class ApplicantController : ControllerBase
+public class UserController : ControllerBase
 {
     private IUserService _userService;
     private IMapper _mapper;
     private readonly AppSettings _appSettings;
 
-    public ApplicantController(
+    public UserController(
         IUserService userService,
         IMapper mapper,
         IOptions<AppSettings> appSettings)
@@ -28,7 +29,7 @@ public class ApplicantController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost("authenticate")]
+    [HttpPost("login")]
     public async Task<IActionResult> Authenticate(AuthenticateRequest model)
     {
         var response = await _userService.Authenticate(model);
@@ -57,10 +58,11 @@ public class ApplicantController : ControllerBase
         return Ok(user);
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, UpdateRequest model)
+    [HttpPut]
+    public async Task<IActionResult> Update(UpdateRequest model)
     {
-        await _userService.Update(id, model);
+        var user = (User)HttpContext.Items["User"];
+        await _userService.Update(user.user_id, model);
         return Ok(new { message = "User updated successfully" });
     }
 

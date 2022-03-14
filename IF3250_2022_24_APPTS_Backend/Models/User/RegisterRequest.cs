@@ -7,11 +7,13 @@ public class RegisterRequest
     public string email { get; set; }
 
     [Required]
-    public string applicant_name { get; set; }
+    public string full_name { get; set; }
 
     [Required]
     public string password { get; set; }
 
     [Required]
     public string phone_number { get; set; }
+    [Required]
+    public string type { get; set; }
 }

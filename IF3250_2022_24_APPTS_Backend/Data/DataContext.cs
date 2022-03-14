@@ -17,5 +17,6 @@ public class DataContext : DbContext
         options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
     }
 
-    public DbSet<Applicant> applicant { get; set; }
+    public DbSet<User> user { get; set; }
+    public DbSet<JobOpening> job_opening { get; set; }
 }
