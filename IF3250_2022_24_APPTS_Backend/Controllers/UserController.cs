@@ -28,7 +28,19 @@ public class UserController : ControllerBase
         _appSettings = appSettings.Value;
     }
 
-    [AllowAnonymous]
+    /// <summary>Logging in</summary>
+    /// <returns>Message and Token</returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     {
+    ///         "email": "amazon@gmail.com",
+    ///         "password" : "password",
+    ///         "type": "company"
+    ///      }
+    ///      
+    /// </remarks>
+    
     [HttpPost("login")]
     public async Task<IActionResult> Authenticate(AuthenticateRequest model)
     {
@@ -36,6 +48,20 @@ public class UserController : ControllerBase
         return Ok(response);
     }
 
+    /// <summary>Register a User</summary>
+    /// <returns>Message</returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     {
+    ///         "email": "amazon@gmail.com",
+    ///         "password" : "password",
+    ///         "full_name" : "Amazon Web Service",
+    ///         "phone_number" : "12345678",
+    ///         "type": "company"
+    ///      }
+    ///      
+    /// </remarks>
     [AllowAnonymous]
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest model)
@@ -44,6 +70,11 @@ public class UserController : ControllerBase
         return Ok(new { message = "Registration successful" });
     }
 
+    /// <summary>Fetch list of Users</summary>
+    /// <returns>List of all users</returns>
+    /// <remarks>
+    /// Requires Bearer Token in Header
+    /// </remarks>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -51,6 +82,11 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
+    /// <summary>Fetch User by user_id</summary>
+    /// <returns>A User</returns>
+    /// <remarks>
+    /// Requires Bearer Token in Header
+    /// </remarks>
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -58,6 +94,28 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
+    /// <summary>Update User</summary>
+    /// <returns>Message</returns>
+    /// <remarks>
+    /// Requires Bearer Token in Header
+    /// 
+    /// Sample request:
+    ///
+    ///     {
+    ///       "full_name": "string",
+    ///       "profile_picture": "string",
+    ///       "birthdate": "string",
+    ///       "phone_number": "string",
+    ///       "gender": "string",
+    ///       "country": "string",
+    ///       "city": "string",
+    ///       "headline": "string",
+    ///       "description": "string",
+    ///       "status": "string",
+    ///       "type": "string"
+    ///     }
+    ///      
+    /// </remarks>
     [HttpPut]
     public async Task<IActionResult> Update(UpdateRequest model)
     {
@@ -66,6 +124,11 @@ public class UserController : ControllerBase
         return Ok(new { message = "User updated successfully" });
     }
 
+    /// <summary>Delete a User by user_id</summary>
+    /// <returns>Message</returns>
+    /// <remarks>
+    /// Requires Bearer Token in Header
+    /// </remarks>
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

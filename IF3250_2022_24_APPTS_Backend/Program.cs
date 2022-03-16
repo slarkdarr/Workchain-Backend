@@ -3,6 +3,7 @@ using IF3250_2022_24_APPTS_Backend.Authorization;
 using IF3250_2022_24_APPTS_Backend.Helpers;
 using IF3250_2022_24_APPTS_Backend.Services;
 using IF3250_2022_24_APPTS_Backend.Data;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,20 @@ var builder = WebApplication.CreateBuilder(args);
     services.AddControllers().AddJsonOptions(options => 
     {
         options.JsonSerializerOptions.Converters.Add(new DateConverter());
+    });
+
+    services.AddSwaggerGen(options => 
+    {
+        options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+        {
+            Title = "Applicant Tracking System API",
+            Description = "API for managing user, job opening, and job application",
+            Version = "v1"
+        });
+
+        // using System.Reflection;
+        var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
     });
 
     // configure automapper with all automapper profiles from this assembly
@@ -56,6 +71,16 @@ using (var scope = app.Services.CreateScope())
     app.UseMiddleware<JwtMiddleware>();
 
     app.MapControllers();
+}
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Applicant Tracking System API");
+        options.RoutePrefix = string.Empty;
+    });
 }
 
 app.Run("http://localhost:4000");

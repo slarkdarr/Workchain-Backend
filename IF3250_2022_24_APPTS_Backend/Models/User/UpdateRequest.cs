@@ -3,7 +3,7 @@ public class UpdateRequest
 {
     public string full_name { get; set; }
     public string? profile_picture { get; set; }
-    public string? birthdate { get; set; }
+    public DateOnly? birthdate { get; set; }
     public string? phone_number { get; set; }
     public string? gender { get; set; }
     public string? country { get; set; }

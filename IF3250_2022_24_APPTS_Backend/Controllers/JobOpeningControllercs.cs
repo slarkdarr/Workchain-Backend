@@ -28,6 +28,23 @@ public class JobOpeningController : ControllerBase
         _appSettings = appSettings.Value;
     }
 
+
+    /// <summary>Adding a Job Opening</summary>
+    /// <returns>Message</returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     {
+    ///        "job_id": 0,
+    ///        "job_name": "Software Developer",
+    ///        "start_recruitment_date": "16/03/2022",
+    ///        "end_recruitment_date": "23/03/2022",
+    ///        "job_type": "programming",
+    ///        "salary": 10000000,
+    ///        "description": "Adding Job Opening"
+    ///     }
+    ///
+    /// </remarks>
     [HttpPost("add")]
     public async Task<IActionResult> Add(AddJobOpeningRequest model)
     {
@@ -36,6 +53,8 @@ public class JobOpeningController : ControllerBase
         return Ok(new { message = "Job opening added successfully" });
     }
 
+    /// <summary>Fetching All Job Openings</summary>
+    /// <returns>A list of all Job Openings</returns>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -43,6 +62,8 @@ public class JobOpeningController : ControllerBase
         return Ok(job_opening);
     }
 
+    /// <summary>Fetching a Job Opening by job_id</summary>
+    /// <returns>1 Job Opening</returns>
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -50,6 +71,8 @@ public class JobOpeningController : ControllerBase
         return Ok(job_opening);
     }
 
+    /// <summary>Deleting a Job Opening by job_id</summary>
+    /// <returns>Message</returns>
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
