@@ -15,7 +15,10 @@ var builder = WebApplication.CreateBuilder(args);
     services.AddDbContext<DataContext>();
 
     services.AddCors();
-    services.AddControllers();
+    services.AddControllers().AddJsonOptions(options => 
+    {
+        options.JsonSerializerOptions.Converters.Add(new DateConverter());
+    });
 
     // configure automapper with all automapper profiles from this assembly
     services.AddAutoMapper(typeof(Program));

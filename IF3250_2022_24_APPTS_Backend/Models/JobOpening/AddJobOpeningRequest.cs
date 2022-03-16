@@ -8,9 +8,9 @@ public class AddJobOpeningRequest
     [Required]
     public string? job_name { get; set; }
     [Required]
-    public string? start_recruitment_date { get; set; }
+    public DateOnly? start_recruitment_date { get; set; }
     [Required]
-    public string? end_recruitment_date { get; set; }
+    public DateOnly? end_recruitment_date { get; set; }
     [Required]
     public string? job_type { get; set; }
     [Required]

@@ -13,7 +13,7 @@ public class User
     [JsonIgnore]
     public string password { get; set; } = string.Empty;
     public string? profile_picture { get; set; } = null;
-    public string? birthdate { get; set; } = null;
+    public DateOnly? birthdate { get; set; } = null;
     public string? phone_number { get; set; } = string.Empty;
     public string? gender { get; set; } = null;
     public string? country { get; set; } = null;
