@@ -12,11 +12,11 @@ using Microsoft.EntityFrameworkCore;
 public interface IUserService
 {
     Task<AuthenticateResponse> Authenticate(AuthenticateRequest model);
-    Task<List<Applicant>> GetAll();
-    Task<Applicant> GetOne(int id);
-    Task<Applicant> Register(RegisterRequest model);
-    Task<Applicant> Update(int id, UpdateRequest model);
-    Task<Applicant> Delete(int id);
+    Task<List<User>> GetAll();
+    Task<User> GetOne(int id);
+    Task<User> Register(RegisterRequest model);
+    Task<User> Update(int id, UpdateRequest model);
+    Task<User> Delete(int id);
 }
 
 public class UserService : IUserService
@@ -37,8 +37,8 @@ public class UserService : IUserService
 
     public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
     {
-        var user = await _context.applicant.SingleOrDefaultAsync(x => x.email == model.email);
-        System.Diagnostics.Debug.WriteLine(model.password);
+        var user = await _context.user.SingleOrDefaultAsync(x => (x.email == model.email && x.type == model.type));
+        //System.Diagnostics.Debug.WriteLine(model.password);
 
         // validate
         if (user == null || !BCrypt.Verify(model.password, user.password))
@@ -46,78 +46,58 @@ public class UserService : IUserService
 
         // authentication successful
         var response = _mapper.Map<AuthenticateResponse>(user);
-        System.Diagnostics.Debug.WriteLine("Kontol");
         response.Token = _jwtUtils.GenerateToken(user);
         //System.Diagnostics.Debug.WriteLine(response.Token);
         return response;
     }
 
-    public async Task<List<Applicant>> GetAll()
+    public async Task<List<User>> GetAll()
     {
-        return await _context.applicant.ToListAsync();
+        return await _context.user.ToListAsync();
     }
 
-    public async Task<Applicant> GetOne(int id)
+    public async Task<User> GetOne(int id)
     {
         var user = await getUser(id);
         return user;
     }
 
-    public async Task<Applicant> Register(RegisterRequest model)
+    public async Task<User> Register(RegisterRequest model)
     {
         // validate
-        if (await _context.applicant.AnyAsync(x => x.email == model.email))
+        if (await _context.user.AnyAsync(x => x.email == model.email))
             throw new AppException("Email '" + model.email + "' is already taken");
 
         // map model to new user object
-        var user = _mapper.Map<Applicant>(model);
+        var user = _mapper.Map<User>(model);
         Console.WriteLine(user);
 
         // hash password
         user.password = BCrypt.HashPassword(model.password);
 
-        // set all properties to null (TODO)
-        user.profile_picture = null;
-        user.birthdate = null;
-        user.gender = null;
-        user.country = null;
-        user.city = null;
-        user.headline = null;
-        user.description = null;
-        user.status = null;
-
         // save user
-        await _context.applicant.AddAsync(user);
+        await _context.user.AddAsync(user);
         await _context.SaveChangesAsync();
 
         return user;
     }
 
-    public async Task<Applicant> Update(int id, UpdateRequest model)
+    public async Task<User> Update(int id, UpdateRequest model)
     {
         var user = await getUser(id);
-
-        // validate
-        if (model.email != user.email && await _context.applicant.AnyAsync(x => x.email == model.email))
-            throw new AppException("Email '" + model.email + "' is already taken");
-
-        // hash password if it was entered
-        if (!string.IsNullOrEmpty(model.password))
-            user.password = BCrypt.HashPassword(model.password);
 
         // copy model to user and save
         _mapper.Map(model, user);
-        Console.WriteLine(user);
-        _context.applicant.Update(user);
+        _context.user.Update(user);
         await _context.SaveChangesAsync();
 
         return user;
     }
 
-    public async Task<Applicant> Delete(int id)
+    public async Task<User> Delete(int id)
     {
         var user = await getUser(id);
-        _context.applicant.Remove(user);
+        _context.user.Remove(user);
         await _context.SaveChangesAsync();
 
         return user;
@@ -126,9 +106,9 @@ public class UserService : IUserService
     // helper methods
 
 
-    private async Task<Applicant> getUser(int id)
+    private async Task<User> getUser(int id)
     {
-        var user = await _context.applicant.FindAsync(id);
+        var user = await _context.user.FindAsync(id);
         if (user == null) throw new KeyNotFoundException("User not found");
         return user;
     }

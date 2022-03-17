@@ -3,19 +3,20 @@
 using AutoMapper;
 using IF3250_2022_24_APPTS_Backend.Entities;
 using IF3250_2022_24_APPTS_Backend.Models.User;
+using IF3250_2022_24_APPTS_Backend.Models.JobOpening;
 
 public class AutoMapperProfile : Profile
 {
     public AutoMapperProfile()
     {
         // User -> AuthenticateResponse
-        CreateMap<Applicant, AuthenticateResponse>();
+        CreateMap<User, AuthenticateResponse>();
 
         // RegisterRequest -> User
-        CreateMap<RegisterRequest, Applicant>();
+        CreateMap<RegisterRequest, User>();
 
         // UpdateRequest -> User
-        CreateMap<UpdateRequest, Applicant>()
+        CreateMap<UpdateRequest, User>()
             .ForAllMembers(x => x.Condition(
                 (src, dest, prop) =>
                 {
@@ -26,5 +27,8 @@ public class AutoMapperProfile : Profile
                     return true;
                 }
             ));
+
+        // AddRequest -> JobOpening
+        CreateMap<AddJobOpeningRequest, JobOpening>();
     }
 }
