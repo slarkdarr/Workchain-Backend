@@ -40,7 +40,7 @@ public class UserController : ControllerBase
     ///      }
     ///      
     /// </remarks>
-    
+    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<IActionResult> Authenticate(AuthenticateRequest model)
     {

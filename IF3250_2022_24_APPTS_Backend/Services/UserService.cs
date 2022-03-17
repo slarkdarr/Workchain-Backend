@@ -38,7 +38,6 @@ public class UserService : IUserService
     public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
     {
         var user = await _context.user.SingleOrDefaultAsync(x => (x.email == model.email && x.type == model.type));
-        //System.Diagnostics.Debug.WriteLine(model.password);
 
         // validate
         if (user == null || !BCrypt.Verify(model.password, user.password))

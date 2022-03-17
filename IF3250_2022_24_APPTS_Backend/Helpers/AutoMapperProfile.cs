@@ -4,6 +4,7 @@ using AutoMapper;
 using IF3250_2022_24_APPTS_Backend.Entities;
 using IF3250_2022_24_APPTS_Backend.Models.User;
 using IF3250_2022_24_APPTS_Backend.Models.JobOpening;
+using IF3250_2022_24_APPTS_Backend.Models.JobApplication;
 
 public class AutoMapperProfile : Profile
 {
@@ -30,5 +31,11 @@ public class AutoMapperProfile : Profile
 
         // AddRequest -> JobOpening
         CreateMap<AddJobOpeningRequest, JobOpening>();
+
+        // AddRequest -> JobApplication
+        CreateMap<AddJobApplicationRequest, JobApplication>();
+
+        // AddRequest -> JobApplication
+        CreateMap<JobApplication, JobApplicationResponse>();
     }
 }

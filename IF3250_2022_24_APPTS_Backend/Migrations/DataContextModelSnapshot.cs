@@ -22,6 +22,43 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("IF3250_2022_24_APPTS_Backend.Entities.JobApplication", b =>
+                {
+                    b.Property<int>("application_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("application_id"));
+
+                    b.Property<string>("applicant_email")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("applicant_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("applicant_name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("applicant_telp")
+                        .HasColumnType("text");
+
+                    b.Property<DateOnly?>("apply_date")
+                        .HasColumnType("date");
+
+                    b.Property<int?>("job_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("requirement_link")
+                        .HasColumnType("text");
+
+                    b.Property<string>("status")
+                        .HasColumnType("text");
+
+                    b.HasKey("application_id");
+
+                    b.ToTable("job_application");
+                });
+
             modelBuilder.Entity("IF3250_2022_24_APPTS_Backend.Entities.JobOpening", b =>
                 {
                     b.Property<int>("job_id")
@@ -36,8 +73,8 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
                     b.Property<string>("description")
                         .HasColumnType("text");
 
-                    b.Property<string>("end_recruitment_date")
-                        .HasColumnType("text");
+                    b.Property<DateOnly?>("end_recruitment_date")
+                        .HasColumnType("date");
 
                     b.Property<string>("job_name")
                         .HasColumnType("text");
@@ -48,12 +85,12 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
                     b.Property<int?>("salary")
                         .HasColumnType("integer");
 
-                    b.Property<string>("start_recruitment_date")
-                        .HasColumnType("text");
+                    b.Property<DateOnly?>("start_recruitment_date")
+                        .HasColumnType("date");
 
                     b.HasKey("job_id");
 
-                    b.ToTable("job_opening");
+                    b.ToTable("job_openings");
                 });
 
             modelBuilder.Entity("IF3250_2022_24_APPTS_Backend.Entities.User", b =>
@@ -64,8 +101,8 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("user_id"));
 
-                    b.Property<string>("birthdate")
-                        .HasColumnType("text");
+                    b.Property<DateOnly?>("birthdate")
+                        .HasColumnType("date");
 
                     b.Property<string>("city")
                         .HasColumnType("text");
@@ -108,7 +145,7 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
 
                     b.HasKey("user_id");
 
-                    b.ToTable("user");
+                    b.ToTable("users");
                 });
 #pragma warning restore 612, 618
         }
