@@ -45,6 +45,7 @@ var builder = WebApplication.CreateBuilder(args);
     services.AddScoped<IJwtUtils, JwtUtils>();
     services.AddScoped<IUserService, UserService>();
     services.AddScoped<IJobOpeningService, JobOpeningService>();
+    services.AddScoped<IJobApplicationService, JobApplicationService>();
 }
 
 var app = builder.Build();
@@ -53,7 +54,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-    dataContext.Database.Migrate();
+    //dataContext.Database.Migrate();
 }
 
 // configure HTTP request pipeline

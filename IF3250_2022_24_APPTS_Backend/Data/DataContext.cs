@@ -19,4 +19,5 @@ public class DataContext : DbContext
 
     public DbSet<User> user { get; set; }
     public DbSet<JobOpening> job_opening { get; set; }
+    public DbSet<JobApplication> job_application { get; set; }
 }
