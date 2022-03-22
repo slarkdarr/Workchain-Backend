@@ -15,5 +15,8 @@ public class JobApplication
     public string? applicant_name { get; set; } = null;
     public string? applicant_email { get; set; } = null;
     public string? applicant_telp { get; set; } = null;
+    public DateOnly? interview_date { get; set; } = null;
+    public TimeOnly? interview_time { get; set; } = null;
+    public string? interview_link { get; set; } = null;
    
 }

@@ -12,6 +12,7 @@ public interface IJobOpeningService
 {
     Task<List<JobOpening>> GetAll();
     Task<JobOpening> GetByJobId(int job_id);
+    Task<List<JobOpening>> GetByCompanyId(int company_id);
     Task<JobOpening> Add(int company_id, AddJobOpeningRequest model);
     Task<JobOpening> Delete(int job_id);
 }
@@ -41,6 +42,11 @@ public class JobOpeningService : IJobOpeningService
     {
         var job_opening = await getJobOpening(job_id);
         return job_opening;
+    }
+
+    public async Task<List<JobOpening>> GetByCompanyId(int company_id)
+    {
+        return await _context.job_opening.Where(x => (x.company_id == company_id)).ToListAsync();
     }
 
     public async Task<JobOpening> Add(int company_id, AddJobOpeningRequest model)

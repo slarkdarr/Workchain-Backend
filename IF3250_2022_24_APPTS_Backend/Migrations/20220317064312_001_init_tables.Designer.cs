@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IF3250_2022_24_APPTS_Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220317081256_001_init_tables")]
+    [Migration("20220317064312_001_init_tables")]
     partial class _001_init_tables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,43 +23,6 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("IF3250_2022_24_APPTS_Backend.Entities.JobApplication", b =>
-                {
-                    b.Property<int>("application_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("application_id"));
-
-                    b.Property<string>("applicant_email")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("applicant_id")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("applicant_name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("applicant_telp")
-                        .HasColumnType("text");
-
-                    b.Property<DateOnly?>("apply_date")
-                        .HasColumnType("date");
-
-                    b.Property<int?>("job_id")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("requirement_link")
-                        .HasColumnType("text");
-
-                    b.Property<string>("status")
-                        .HasColumnType("text");
-
-                    b.HasKey("application_id");
-
-                    b.ToTable("job_application");
-                });
 
             modelBuilder.Entity("IF3250_2022_24_APPTS_Backend.Entities.JobOpening", b =>
                 {
@@ -92,7 +55,7 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
 
                     b.HasKey("job_id");
 
-                    b.ToTable("job_openings");
+                    b.ToTable("job_opening");
                 });
 
             modelBuilder.Entity("IF3250_2022_24_APPTS_Backend.Entities.User", b =>
@@ -147,7 +110,7 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
 
                     b.HasKey("user_id");
 
-                    b.ToTable("users");
+                    b.ToTable("user");
                 });
 #pragma warning restore 612, 618
         }

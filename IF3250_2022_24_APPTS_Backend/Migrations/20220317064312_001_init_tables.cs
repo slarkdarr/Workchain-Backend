@@ -11,27 +11,7 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "job_application",
-                columns: table => new
-                {
-                    application_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    job_id = table.Column<int>(type: "integer", nullable: true),
-                    applicant_id = table.Column<int>(type: "integer", nullable: true),
-                    apply_date = table.Column<DateOnly>(type: "date", nullable: true),
-                    requirement_link = table.Column<string>(type: "text", nullable: true),
-                    status = table.Column<string>(type: "text", nullable: true),
-                    applicant_name = table.Column<string>(type: "text", nullable: true),
-                    applicant_email = table.Column<string>(type: "text", nullable: true),
-                    applicant_telp = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_job_application", x => x.application_id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "job_openings",
+                name: "job_opening",
                 columns: table => new
                 {
                     job_id = table.Column<int>(type: "integer", nullable: false)
@@ -46,11 +26,11 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_job_openings", x => x.job_id);
+                    table.PrimaryKey("PK_job_opening", x => x.job_id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "users",
+                name: "user",
                 columns: table => new
                 {
                     user_id = table.Column<int>(type: "integer", nullable: false)
@@ -71,20 +51,17 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_users", x => x.user_id);
+                    table.PrimaryKey("PK_user", x => x.user_id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "job_application");
+                name: "job_opening");
 
             migrationBuilder.DropTable(
-                name: "job_openings");
-
-            migrationBuilder.DropTable(
-                name: "users");
+                name: "user");
         }
     }
 }
