@@ -23,7 +23,10 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
                     status = table.Column<string>(type: "text", nullable: true),
                     applicant_name = table.Column<string>(type: "text", nullable: true),
                     applicant_email = table.Column<string>(type: "text", nullable: true),
-                    applicant_telp = table.Column<string>(type: "text", nullable: true)
+                    applicant_telp = table.Column<string>(type: "text", nullable: true),
+                    interview_date = table.Column<DateOnly>(type: "date", nullable: true),
+                    interview_time = table.Column<TimeOnly>(type: "time without time zone", nullable: true),
+                    interview_link = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,7 +34,7 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "job_openings",
+                name: "job_opening",
                 columns: table => new
                 {
                     job_id = table.Column<int>(type: "integer", nullable: false)
@@ -46,11 +49,11 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_job_openings", x => x.job_id);
+                    table.PrimaryKey("PK_job_opening", x => x.job_id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "users",
+                name: "user",
                 columns: table => new
                 {
                     user_id = table.Column<int>(type: "integer", nullable: false)
@@ -71,7 +74,7 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_users", x => x.user_id);
+                    table.PrimaryKey("PK_user", x => x.user_id);
                 });
         }
 
@@ -81,10 +84,10 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
                 name: "job_application");
 
             migrationBuilder.DropTable(
-                name: "job_openings");
+                name: "job_opening");
 
             migrationBuilder.DropTable(
-                name: "users");
+                name: "user");
         }
     }
 }

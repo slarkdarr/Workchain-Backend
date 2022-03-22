@@ -35,7 +35,6 @@ public class JobOpeningController : ControllerBase
     /// Sample request:
     ///
     ///     {
-    ///        "job_id": 0,
     ///        "job_name": "Software Developer",
     ///        "start_recruitment_date": "16/03/2022",
     ///        "end_recruitment_date": "23/03/2022",
@@ -68,6 +67,16 @@ public class JobOpeningController : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var job_opening = await _jobOpeningService.GetByJobId(id);
+        return Ok(job_opening);
+    }
+
+    /// <summary>Fetching All Job Openings By a Company</summary>
+    /// <returns>A list of Job Openings</returns>
+    [HttpGet("company")]
+    public async Task<IActionResult> GetByCompanyId()
+    {
+        var company = (User)HttpContext.Items["User"];
+        var job_opening = await _jobOpeningService.GetByCompanyId(company.user_id);
         return Ok(job_opening);
     }
 
