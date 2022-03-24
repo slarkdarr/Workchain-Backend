@@ -21,14 +21,14 @@ public class JobApplicationResponse
     public string? applicant_email { get; set; }
     [Required]
     public string? applicant_telp { get; set; }
+    public DateOnly? interview_date { get; set; }
+    public TimeOnly? interview_time { get; set; }
+    public string? interview_link { get; set; }
     [Required]
     public string? job_name { get; set; }
     [Required]
     public string? company_name { get; set; }
-    [Required]
     public string? company_picture { get; set; }
-    [Required]
     public string? country { get; set; }
-    [Required]
     public string? city { get; set; }
 }

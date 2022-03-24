@@ -29,19 +29,18 @@ public class JobApplicationController : ControllerBase
     }
 
 
-    /// <summary>Adding a Job Opening</summary>
+    /// <summary>Adding a Job Application</summary>
     /// <returns>Message</returns>
     /// <remarks>
     /// Sample request:
     ///
     ///     {
     ///        "job_id": 0,
-    ///        "job_name": "Software Developer",
-    ///        "start_recruitment_date": "16/03/2022",
-    ///        "end_recruitment_date": "23/03/2022",
-    ///        "job_type": "programming",
-    ///        "salary": 10000000,
-    ///        "description": "Adding Job Opening"
+    ///        "apply_date": "16/03/2022",
+    ///        "status": "In Review",
+    ///        "applicant_name": "Jordan Daniel Joshua",
+    ///        "applicant_email": "jordan@gmail.com",
+    ///        "applicant_telp" : 12345678,
     ///     }
     ///
     /// </remarks>
@@ -53,8 +52,8 @@ public class JobApplicationController : ControllerBase
         return Ok(new { message = "Job Application added successfully" });
     }
 
-    /// <summary>Fetching All Job Openings</summary>
-    /// <returns>A list of all Job Openings</returns>
+    /// <summary>Fetching All Job Applications</summary>
+    /// <returns>A list of all Job Applications</returns>
     [HttpGet]
     public IQueryable<Object> GetAll()
     {
@@ -62,8 +61,8 @@ public class JobApplicationController : ControllerBase
         return job_application;
     }
 
-    /// <summary>Fetching a Job Opening by job_id</summary>
-    /// <returns>1 Job Opening</returns>
+    /// <summary>Fetching a Job Opening by application_id</summary>
+    /// <returns>1 Job Application</returns>
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -71,7 +70,51 @@ public class JobApplicationController : ControllerBase
         return Ok(job_application);
     }
 
-    /// <summary>Deleting a Job Opening by job_id</summary>
+    /// <summary>Fetching All Job Applications By applicant_id</summary>
+    /// <returns>A list of Job Applications</returns>
+    [HttpGet("applicant")]
+    public IQueryable<Object> GetByApplicantId()
+    {
+        var applicant = (User)HttpContext.Items["User"];
+        var job_application = _jobApplicationService.GetByApplicantId(applicant.user_id);
+        return job_application;
+    }
+
+    /// <summary>Fetching All Job Applications By company_id</summary>
+    /// <returns>A list of Job Applications</returns>
+    [HttpGet("company")]
+    public IQueryable<Object> GetByCompanyId()
+    {
+        var company = (User)HttpContext.Items["User"];
+        var job_application = _jobApplicationService.GetByCompanyId(company.user_id);
+        return job_application;
+    }
+
+    /// <summary>Update Job Application</summary>
+    /// <returns>Message</returns>
+    /// <remarks>
+    /// Requires Bearer Token in Header
+    /// 
+    /// Sample request:
+    ///
+    ///     {
+    ///       "application_id": 1,
+    ///       "status" : "Interview",
+    ///       "interview_date" : "16/04/2022",
+    ///       "interview_time" : "16:00",
+    ///       "interview_link" : "meet.google.com/aws-aws-aws"
+    ///     }
+    ///      
+    /// </remarks>
+    [HttpPut]
+    public async Task<IActionResult> Update(UpdateJobApplicationRequest model)
+    {
+        await _jobApplicationService.Update(model);
+        return Ok(new { message = "Job Application updated successfully" });
+
+    }
+
+    /// <summary>Deleting a Job Application by application_id</summary>
     /// <returns>Message</returns>
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
