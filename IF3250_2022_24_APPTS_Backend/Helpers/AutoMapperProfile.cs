@@ -35,7 +35,10 @@ public class AutoMapperProfile : Profile
         // AddRequest -> JobApplication
         CreateMap<AddJobApplicationRequest, JobApplication>();
 
-        // AddRequest -> JobApplication
+        // JobApplication -> JobApplicationResponse
         CreateMap<JobApplication, JobApplicationResponse>();
+
+        // UpdateRequest -> JobApplication
+        CreateMap<UpdateJobApplicationRequest, JobApplication>();
     }
 }

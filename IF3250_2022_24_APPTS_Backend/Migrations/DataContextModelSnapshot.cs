@@ -45,6 +45,15 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
                     b.Property<DateOnly?>("apply_date")
                         .HasColumnType("date");
 
+                    b.Property<DateOnly?>("interview_date")
+                        .HasColumnType("date");
+
+                    b.Property<string>("interview_link")
+                        .HasColumnType("text");
+
+                    b.Property<TimeOnly?>("interview_time")
+                        .HasColumnType("time without time zone");
+
                     b.Property<int?>("job_id")
                         .HasColumnType("integer");
 
@@ -90,7 +99,7 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
 
                     b.HasKey("job_id");
 
-                    b.ToTable("job_openings");
+                    b.ToTable("job_opening");
                 });
 
             modelBuilder.Entity("IF3250_2022_24_APPTS_Backend.Entities.User", b =>
@@ -145,7 +154,7 @@ namespace IF3250_2022_24_APPTS_Backend.Migrations
 
                     b.HasKey("user_id");
 
-                    b.ToTable("users");
+                    b.ToTable("user");
                 });
 #pragma warning restore 612, 618
         }

@@ -19,6 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
     services.AddControllers().AddJsonOptions(options => 
     {
         options.JsonSerializerOptions.Converters.Add(new DateConverter());
+        options.JsonSerializerOptions.Converters.Add(new TimeConverter());
     });
 
     services.AddSwaggerGen(options => 
