@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF3250_2022_24_APPTS_Backend", "IF3250_2022_24_APPTS_Backend\IF3250_2022_24_APPTS_Backend.csproj", "{50E2F979-52F8-4FFB-84AA-4EA52E395B8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IF3250_2022_24_APPTS_Backend", "IF3250_2022_24_APPTS_Backend\IF3250_2022_24_APPTS_Backend.csproj", "{50E2F979-52F8-4FFB-84AA-4EA52E395B8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IF3250_2022_24_APPTS_Backend.Tests", "IF3250_2022_24_APPTS_Backend.Tests\IF3250_2022_24_APPTS_Backend.Tests.csproj", "{376377D6-8A77-412F-A4E7-D5DC00F591FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{50E2F979-52F8-4FFB-84AA-4EA52E395B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50E2F979-52F8-4FFB-84AA-4EA52E395B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50E2F979-52F8-4FFB-84AA-4EA52E395B8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{376377D6-8A77-412F-A4E7-D5DC00F591FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{376377D6-8A77-412F-A4E7-D5DC00F591FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{376377D6-8A77-412F-A4E7-D5DC00F591FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{376377D6-8A77-412F-A4E7-D5DC00F591FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -50,6 +50,7 @@ var builder = WebApplication.CreateBuilder(args);
 }
 
 var app = builder.Build();
+string? port = Environment.GetEnvironmentVariable("PORT");
 
 // migrate any database changes on startup (includes initial db creation)
 using (var scope = app.Services.CreateScope())
@@ -60,6 +61,12 @@ using (var scope = app.Services.CreateScope())
 
 // configure HTTP request pipeline
 {
+    // heroku config
+    if (!string.IsNullOrWhiteSpace(port))
+    {
+        app.Urls.Add("http://*:" + port);
+    }
+
     // global cors policy
     app.UseCors(x => x
         .AllowAnyOrigin()
@@ -85,5 +92,5 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-//app.Run("http://localhost:4000");
-app.Run();
+app.Run("http://localhost:4000");
+//app.Run();
