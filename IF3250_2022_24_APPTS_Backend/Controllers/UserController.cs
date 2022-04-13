@@ -118,20 +118,6 @@ public class UserController : ControllerBase
         return Ok(new { message = "User updated successfully" });
     }
 
-    /// <summary>Upload User Profile Picture</summary>
-    /// <returns>profile_picture</returns>
-    /// <remarks>
-    /// Requires Bearer Token in Header
-    /// </remarks>
-    [HttpPost("upload")]
-    public async Task<IActionResult> Upload([FromForm]  UploadPictureRequest model)
-    {
-        // Azure Blob
-        //var user = (User)HttpContext.Items["User"];
-        //await _userService.Update(user.user_id, model);
-        return Ok(new { profile_picture = "link" });
-    }
-
     /// <summary>Delete a User by user_id</summary>
     /// <returns>Message</returns>
     /// <remarks>
