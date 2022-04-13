@@ -15,17 +15,11 @@ using IF3250_2022_24_APPTS_Backend.Entities;
 public class UserController : ControllerBase
 {
     private IUserService _userService;
-    private IMapper _mapper;
-    private readonly AppSettings _appSettings;
 
     public UserController(
-        IUserService userService,
-        IMapper mapper,
-        IOptions<AppSettings> appSettings)
+        IUserService userService)
     {
         _userService = userService;
-        _mapper = mapper;
-        _appSettings = appSettings.Value;
     }
 
     /// <summary>Logging in</summary>

@@ -15,17 +15,11 @@ using IF3250_2022_24_APPTS_Backend.Entities;
 public class JobApplicationController : ControllerBase
 {
     private IJobApplicationService _jobApplicationService;
-    private IMapper _mapper;
-    private readonly AppSettings _appSettings;
 
     public JobApplicationController(
-        IJobApplicationService jobApplicationService,
-        IMapper mapper,
-        IOptions<AppSettings> appSettings)
+        IJobApplicationService jobApplicationService)
     {
         _jobApplicationService = jobApplicationService;
-        _mapper = mapper;
-        _appSettings = appSettings.Value;
     }
 
 
