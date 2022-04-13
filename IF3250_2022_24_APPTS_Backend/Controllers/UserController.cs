@@ -96,17 +96,17 @@ public class UserController : ControllerBase
     /// Sample request:
     ///
     ///     {
-    ///       "full_name": "string",
-    ///       "profile_picture": "string",
-    ///       "birthdate": "string",
-    ///       "phone_number": "string",
-    ///       "gender": "string",
-    ///       "country": "string",
-    ///       "city": "string",
-    ///       "headline": "string",
-    ///       "description": "string",
-    ///       "status": "string",
-    ///       "type": "string"
+    ///       "full_name": "Jordan Daniel Joshua",
+    ///       "profile_picture": "link",
+    ///       "birthdate": "29/12/2001",
+    ///       "phone_number": "12345678",
+    ///       "gender": "male",
+    ///       "country": "Indonesia",
+    ///       "city": "Bandung",
+    ///       "headline": "Headline",
+    ///       "description": "Description",
+    ///       "status": "Open to work",
+    ///       "type": "applicant"
     ///     }
     ///      
     /// </remarks>
@@ -116,6 +116,20 @@ public class UserController : ControllerBase
         var user = (User)HttpContext.Items["User"];
         await _userService.Update(user.user_id, model);
         return Ok(new { message = "User updated successfully" });
+    }
+
+    /// <summary>Upload User Profile Picture</summary>
+    /// <returns>profile_picture</returns>
+    /// <remarks>
+    /// Requires Bearer Token in Header
+    /// </remarks>
+    [HttpPost("upload")]
+    public async Task<IActionResult> Upload([FromForm]  UploadPictureRequest model)
+    {
+        // Azure Blob
+        //var user = (User)HttpContext.Items["User"];
+        //await _userService.Update(user.user_id, model);
+        return Ok(new { profile_picture = "link" });
     }
 
     /// <summary>Delete a User by user_id</summary>
