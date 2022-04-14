@@ -49,19 +49,28 @@ public class JobOpeningController : ControllerBase
     /// <summary>Fetching All Job Openings</summary>
     /// <returns>A list of all Job Openings</returns>
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public IQueryable<Object> GetAll()
     {
-        var job_opening = await _jobOpeningService.GetAll();
-        return Ok(job_opening);
+        var job_opening = _jobOpeningService.GetAll();
+        return job_opening;
+    }
+
+    /// <summary>Fetching All Job Openings by keywords</summary>
+    /// <returns>A list of all Job Openings by keywords</returns>
+    [HttpGet("keyword/{jobKeyword}")]
+    public IQueryable<Object> GetJobOpeningByKeyword(string jobKeyword)
+    {
+        var job_opening = _jobOpeningService.GetJobOpeningByKeyword(jobKeyword);
+        return job_opening;
     }
 
     /// <summary>Fetching a Job Opening by job_id</summary>
     /// <returns>1 Job Opening</returns>
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public IQueryable<Object> GetById(int id)
     {
-        var job_opening = await _jobOpeningService.GetByJobId(id);
-        return Ok(job_opening);
+        var job_opening = _jobOpeningService.GetByJobId(id);
+        return job_opening;
     }
 
     /// <summary>Fetching All Job Openings By a Company</summary>

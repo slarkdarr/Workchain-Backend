@@ -7,11 +7,13 @@ using IF3250_2022_24_APPTS_Backend.Entities;
 using IF3250_2022_24_APPTS_Backend.Helpers;
 using IF3250_2022_24_APPTS_Backend.Models.JobOpening;
 using Microsoft.EntityFrameworkCore;
+//using NHibernate.Linq;
 
 public interface IJobOpeningService
 {
-    Task<List<JobOpening>> GetAll();
-    Task<JobOpening> GetByJobId(int job_id);
+    IQueryable<Object> GetAll();
+    IQueryable<Object> GetJobOpeningByKeyword(string jobKeyword);
+    IQueryable<Object> GetByJobId(int job_id);
     Task<List<JobOpening>> GetByCompanyId(int company_id);
     Task<JobOpening> Add(int company_id, AddJobOpeningRequest model);
     Task<JobOpening> Delete(int job_id);
@@ -33,15 +35,63 @@ public class JobOpeningService : IJobOpeningService
         _mapper = mapper;
     }
 
-    public async Task<List<JobOpening>> GetAll()
+    public IQueryable<Object> GetAll()
     {
-        return await _context.job_opening.ToListAsync();
+        return from a in _context.job_opening
+               join b in _context.user on a.company_id equals b.user_id
+               select new JobOpeningResponse
+               {
+                   job_id = a.job_id,
+                   job_name = a.job_name,
+                   start_recruitment_date = a.start_recruitment_date,
+                   end_recruitment_date = a.end_recruitment_date,
+                   job_type = a.job_type,
+                   salary = a.salary,
+                   description = a.description,
+                   company_id = a.company_id,
+                   company_name = b.full_name,
+                   company_city = b.city,
+               };
     }
 
-    public async Task<JobOpening> GetByJobId(int job_id)
+    public IQueryable<Object> GetJobOpeningByKeyword(string jobKeyword)
     {
-        var job_opening = await getJobOpening(job_id);
-        return job_opening;
+        return from a in _context.job_opening
+               join b in _context.user on a.company_id equals b.user_id
+               where a.job_name.ToLower().Contains(jobKeyword.ToLower())
+               select new JobOpeningResponse
+               {
+                   job_id = a.job_id,
+                   job_name = a.job_name,
+                   start_recruitment_date = a.start_recruitment_date,
+                   end_recruitment_date = a.end_recruitment_date,
+                   job_type = a.job_type,
+                   salary = a.salary,
+                   description = a.description,
+                   company_id = a.company_id,
+                   company_name = b.full_name,
+                   company_city = b.city,
+               };
+    }
+
+    public IQueryable<Object> GetByJobId(int job_id)
+    {
+        return from a in _context.job_opening
+               join b in _context.user on a.company_id equals b.user_id
+               where a.job_id == job_id
+               select new JobOpeningResponse
+               {
+                   job_id = a.job_id,
+                   job_name = a.job_name,
+                   start_recruitment_date = a.start_recruitment_date,
+                   end_recruitment_date = a.end_recruitment_date,
+                   job_type = a.job_type,
+                   salary = a.salary,
+                   description = a.description,
+                   company_id = a.company_id,
+                   company_name = b.full_name,
+                   company_city = b.city,
+               };
     }
 
     public async Task<List<JobOpening>> GetByCompanyId(int company_id)
