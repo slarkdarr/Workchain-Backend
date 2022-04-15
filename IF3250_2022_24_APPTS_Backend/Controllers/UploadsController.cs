@@ -29,7 +29,7 @@ namespace Horizon.Controllers
         public async Task<IActionResult> UploadPicture([FromForm] UploadPictureRequest model)
         {
             // TODO : Azure Blob
-            return Ok(new { profile_picture = "link" });
+            return Ok(new { profile_picture = "https://img.okezone.com/content/2022/02/07/33/2543401/jennie-blackpink-dihina-tagar-leavejenniealone-trending-kjFBq7pSGe.jpg" });
         }
 
         /// <summary>Upload User CV</summary>
@@ -41,7 +41,7 @@ namespace Horizon.Controllers
         public async Task<IActionResult> UploadFile([FromForm] UploadFileRequest model)
         {
             // TODO : Azure Blob
-            return Ok(new { requirement_link = "link" });
+            return Ok(new { requirement_link = "https://drive.google.com/file/d/1EgfOv3xmOdDn8YUOrD5MOpoNJokGVuTh/view?usp=sharing" });
         }
     }
 }
