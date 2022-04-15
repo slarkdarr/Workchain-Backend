@@ -58,10 +58,10 @@ public class JobApplicationController : ControllerBase
     /// <summary>Fetching a Job Opening by application_id</summary>
     /// <returns>1 Job Application</returns>
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(int id)
+    public IQueryable<Object> GetById(int id)
     {
-        var job_application = await _jobApplicationService.GetByJobApplicationId(id);
-        return Ok(job_application);
+        var job_application = _jobApplicationService.GetByJobApplicationId(id);
+        return job_application;
     }
 
     /// <summary>Fetching All Job Applications By applicant_id</summary>

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 public interface IJobApplicationService
 {
     IQueryable<Object> GetAll();
-    Task<JobApplication> GetByJobApplicationId(int job_id);
+    IQueryable<Object> GetByJobApplicationId(int job_id);
     IQueryable<Object> GetByApplicantId(int applicant_id);
     IQueryable<Object> GetByCompanyId(int company_id);
     Task<JobApplication> Add(int company_id, AddJobApplicationRequest model);
@@ -62,10 +62,32 @@ public class JobApplicationService : IJobApplicationService
                    };
     }
 
-    public async Task<JobApplication> GetByJobApplicationId(int job_application_id)
+    public IQueryable<Object> GetByJobApplicationId(int job_application_id)
     {
-        var job_application = await getJobApplication(job_application_id);
-        return job_application;
+        return from a in _context.job_application
+               join b in _context.job_opening on a.job_id equals b.job_id
+               join c in _context.user on b.company_id equals c.user_id
+               where a.application_id == job_application_id
+               select new JobApplicationResponse
+               {
+                   application_id = a.application_id,
+                   job_id = a.job_id,
+                   applicant_id = a.applicant_id,
+                   apply_date = a.apply_date,
+                   requirement_link = a.requirement_link,
+                   status = a.status,
+                   applicant_name = a.applicant_name,
+                   applicant_email = a.applicant_email,
+                   applicant_telp = a.applicant_telp,
+                   interview_date = a.interview_date,
+                   interview_time = a.interview_time,
+                   interview_link = a.interview_link,
+                   job_name = b.job_name,
+                   company_name = c.full_name,
+                   company_picture = c.profile_picture,
+                   country = c.country,
+                   city = c.city
+               };
     }
 
     public IQueryable<Object> GetByApplicantId(int applicant_id)
