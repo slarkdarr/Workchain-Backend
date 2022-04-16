@@ -47,6 +47,7 @@ var builder = WebApplication.CreateBuilder(args);
     services.AddScoped<IUserService, UserService>();
     services.AddScoped<IJobOpeningService, JobOpeningService>();
     services.AddScoped<IJobApplicationService, JobApplicationService>();
+    services.AddScoped<IGoogleDriveService, GoogleDriveService>();
 }
 
 var app = builder.Build();
@@ -92,5 +93,5 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-//app.Run("http://localhost:4000");
-app.Run();
+app.Run("http://localhost:4000");
+//app.Run();
