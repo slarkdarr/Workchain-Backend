@@ -47,6 +47,7 @@ var builder = WebApplication.CreateBuilder(args);
     services.AddScoped<IUserService, UserService>();
     services.AddScoped<IJobOpeningService, JobOpeningService>();
     services.AddScoped<IJobApplicationService, JobApplicationService>();
+    services.AddScoped<IGoogleDriveService, GoogleDriveService>();
 }
 
 var app = builder.Build();
