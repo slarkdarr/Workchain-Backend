@@ -23,4 +23,5 @@ public class JobOpeningResponse
     public string? company_name { get; set; }
     [Required]
     public string? company_city { get; set; }
+    public string? company_profile_picture { get; set; }
 }

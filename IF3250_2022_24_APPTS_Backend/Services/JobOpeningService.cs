@@ -51,6 +51,7 @@ public class JobOpeningService : IJobOpeningService
                    company_id = a.company_id,
                    company_name = b.full_name,
                    company_city = b.city,
+                   company_profile_picture = b.profile_picture,
                };
     }
 
@@ -71,6 +72,7 @@ public class JobOpeningService : IJobOpeningService
                    company_id = a.company_id,
                    company_name = b.full_name,
                    company_city = b.city,
+                   company_profile_picture = b.profile_picture,
                };
     }
 
@@ -91,6 +93,7 @@ public class JobOpeningService : IJobOpeningService
                    company_id = a.company_id,
                    company_name = b.full_name,
                    company_city = b.city,
+                   company_profile_picture = b.profile_picture,
                };
     }
 
