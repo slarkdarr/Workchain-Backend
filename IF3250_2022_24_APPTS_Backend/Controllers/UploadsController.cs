@@ -4,20 +4,22 @@ using IF3250_2022_24_APPTS_Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace Horizon.Controllers
+namespace IF3250_2022_24_APPTS_Backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
     public class UploadController : ControllerBase
     {
 
-        //private IGoogleDriveService _googleDriveService;
+        private IGoogleDriveService _googleDriveService;
+        private readonly AppSettings _appSettings;
 
         public UploadController(
-            //IGoogleDriveService googleDriveService,
-        )
+            IGoogleDriveService googleDriveService,
+            IOptions<AppSettings> appSettings)
         {
-            //_googleDriveService = googleDriveService;
+            _googleDriveService = googleDriveService;
+            _appSettings = appSettings.Value;
         }
 
         /// <summary>Upload User Profile Picture</summary>
@@ -28,8 +30,10 @@ namespace Horizon.Controllers
         [HttpPost("picture")]
         public async Task<IActionResult> UploadPicture([FromForm] UploadPictureRequest model)
         {
-            // TODO : Azure Blob
-            return Ok(new { profile_picture = "https://img.okezone.com/content/2022/02/07/33/2543401/jennie-blackpink-dihina-tagar-leavejenniealone-trending-kjFBq7pSGe.jpg" });
+            var memorystream = new MemoryStream();
+            await model.picture.CopyToAsync(memorystream);
+            var response = await _googleDriveService.UploadFile(memorystream, model.picture.FileName, model.picture.ContentType, "root");
+            return Ok(response);
         }
 
         /// <summary>Upload User CV</summary>
@@ -40,8 +44,10 @@ namespace Horizon.Controllers
         [HttpPost("file")]
         public async Task<IActionResult> UploadFile([FromForm] UploadFileRequest model)
         {
-            // TODO : Azure Blob
-            return Ok(new { requirement_link = "https://drive.google.com/file/d/1EgfOv3xmOdDn8YUOrD5MOpoNJokGVuTh/view?usp=sharing" });
+            var memorystream = new MemoryStream();
+            await model.file.CopyToAsync(memorystream);
+            var response = await _googleDriveService.UploadFile(memorystream, model.file.FileName, model.file.ContentType, "root");
+            return Ok(response);
         }
     }
 }
