@@ -40,6 +40,7 @@ public class JobApplicationService : IJobApplicationService
         return from a in _context.job_application 
                    join b in _context.job_opening on a.job_id equals b.job_id
                    join c in _context.user on b.company_id equals c.user_id
+                   join d in _context.user on a.applicant_id equals d.user_id
                    select new JobApplicationResponse 
                    { 
                        application_id = a.application_id,
@@ -58,7 +59,8 @@ public class JobApplicationService : IJobApplicationService
                        company_name = c.full_name,
                        company_picture = c.profile_picture,
                        country = c.country,
-                       city = c.city
+                       city = c.city,
+                       applicant_picture = d.profile_picture
                    };
     }
 
@@ -67,6 +69,7 @@ public class JobApplicationService : IJobApplicationService
         return from a in _context.job_application
                join b in _context.job_opening on a.job_id equals b.job_id
                join c in _context.user on b.company_id equals c.user_id
+               join d in _context.user on a.applicant_id equals d.user_id
                where a.application_id == job_application_id
                select new JobApplicationResponse
                {
@@ -86,7 +89,8 @@ public class JobApplicationService : IJobApplicationService
                    company_name = c.full_name,
                    company_picture = c.profile_picture,
                    country = c.country,
-                   city = c.city
+                   city = c.city,
+                   applicant_picture = d.profile_picture
                };
     }
 
@@ -95,6 +99,7 @@ public class JobApplicationService : IJobApplicationService
         return from a in _context.job_application
                join b in _context.job_opening on a.job_id equals b.job_id
                join c in _context.user on b.company_id equals c.user_id
+               join d in _context.user on a.applicant_id equals d.user_id
                where a.applicant_id == applicant_id
                select new JobApplicationResponse
                {
@@ -114,7 +119,8 @@ public class JobApplicationService : IJobApplicationService
                    company_name = c.full_name,
                    company_picture = c.profile_picture,
                    country = c.country,
-                   city = c.city
+                   city = c.city,
+                   applicant_picture = d.profile_picture
                };
     }
 
@@ -123,6 +129,7 @@ public class JobApplicationService : IJobApplicationService
         return from a in _context.job_application
                join b in _context.job_opening on a.job_id equals b.job_id
                join c in _context.user on b.company_id equals c.user_id
+               join d in _context.user on a.applicant_id equals d.user_id
                where b.company_id == company_id
                select new JobApplicationResponse
                {
@@ -142,7 +149,8 @@ public class JobApplicationService : IJobApplicationService
                    company_name = c.full_name,
                    company_picture = c.profile_picture,
                    country = c.country,
-                   city = c.city
+                   city = c.city,
+                   applicant_picture = d.profile_picture
                };
     }
 

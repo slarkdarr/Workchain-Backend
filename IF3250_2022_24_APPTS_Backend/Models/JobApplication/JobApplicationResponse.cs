@@ -31,4 +31,5 @@ public class JobApplicationResponse
     public string? company_picture { get; set; }
     public string? country { get; set; }
     public string? city { get; set; }
+    public string? applicant_picture { get; set; }
 }

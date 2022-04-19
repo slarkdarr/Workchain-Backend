@@ -104,7 +104,7 @@ public class GoogleDriveService : IGoogleDriveService
         _driveService.Permissions.Create(newPermission,request.ResponseBody.Id).Execute();
 
         UploadResponse uploadResponse = new UploadResponse();
-        uploadResponse.link = request.ResponseBody.WebViewLink;
+        uploadResponse.link = "https://drive.google.com/uc?id=" + request.ResponseBody.Id;
 
         return uploadResponse;
     }
